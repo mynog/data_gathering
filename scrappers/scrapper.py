@@ -1,7 +1,6 @@
 import logging
 import requests
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -11,21 +10,29 @@ class Scrapper(object):
 
     def scrap_process(self, storage):
 
-        # You can iterate over ids, or get list of objects
-        # from any API, or iterate throught pages of any site
-        # Do not forget to skip already gathered data
-        # Here is an example for you
-        url = 'https://otus.ru/'
-        response = requests.get(url)
+        api_url = 'https://api.opendota.com/api/proMatches'
 
-        if not response.ok:
-            logger.error(response.text)
-            # then continue process, or retry, or fix your code
+        matches_limit = 1000
+        api_param_value = 0
+        scraped_matches = 0
 
-        else:
-            # Note: here json can be used as response.json
-            data = response.text
+        while scraped_matches < matches_limit:
 
-            # save scrapped objects here
-            # you can save url to identify already scrapped objects
-            storage.write_data([url + '\t' + data.replace('\n', '')])
+            response = requests.get(api_url, {'less_than_match_id': api_param_value}) if scraped_matches != 0 \
+                else requests.get(api_url)
+
+            if not response.ok:
+                logger.error(response.text)
+                # then continue process, or retry, or fix your code
+            else:
+                data = response.text
+
+                line = [data.replace('\n', '')]
+
+                if scraped_matches == 0:
+                    storage.write_data(line)
+                else:
+                    storage.append_data(line)
+
+                scraped_matches += 100
+                api_param_value = response.json()[-1]['match_id']
