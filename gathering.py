@@ -123,15 +123,16 @@ pep8 .
 
 import logging
 import pandas as pd
+import json
 
 import sys
 
+from parsers.dota_file_parser import DotaFileParser
 from scrappers.scrapper import Scrapper
 from storages.file_storage import FileStorage
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 
 SCRAPPED_FILE = 'scrapped_data.txt'
 TABLE_FORMAT_FILE = 'data.json'
@@ -148,16 +149,22 @@ def gather_process():
 
 def convert_data_to_table_format():
     logger.info("transform")
+    storage = FileStorage(SCRAPPED_FILE)
 
-    # Your code here
-    # transform gathered data from txt file to pandas DataFrame and save as csv
-    pass
+    data = []
+
+    parser = DotaFileParser(data)
+    for line in storage.read_data():
+        data = data + parser.parse(line)
+
+    with open(TABLE_FORMAT_FILE, 'w') as outfile:
+        json.dump(data, outfile)
 
 
 def stats_of_data():
     logger.info("stats")
     df = pd.read_json(TABLE_FORMAT_FILE)
-    
+
     # Your code here
     # Load pandas DataFrame and print to stdout different statistics about the data.
     # Try to think about the data and use not only describe and info.
