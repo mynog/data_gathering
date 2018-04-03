@@ -122,6 +122,7 @@ pep8 .
 """
 
 import logging
+import pandas as pd
 
 import sys
 
@@ -133,7 +134,7 @@ logger = logging.getLogger(__name__)
 
 
 SCRAPPED_FILE = 'scrapped_data.txt'
-TABLE_FORMAT_FILE = 'data.csv'
+TABLE_FORMAT_FILE = 'data.json'
 
 
 def gather_process():
@@ -155,7 +156,8 @@ def convert_data_to_table_format():
 
 def stats_of_data():
     logger.info("stats")
-
+    df = pd.read_json(TABLE_FORMAT_FILE)
+    
     # Your code here
     # Load pandas DataFrame and print to stdout different statistics about the data.
     # Try to think about the data and use not only describe and info.

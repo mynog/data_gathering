@@ -12,7 +12,7 @@ class Scrapper(object):
 
         api_url = 'https://api.opendota.com/api/proMatches'
 
-        matches_limit = 1000
+        matches_limit = 1250
         api_param_value = 0
         scraped_matches = 0
 
@@ -23,11 +23,10 @@ class Scrapper(object):
 
             if not response.ok:
                 logger.error(response.text)
-                # then continue process, or retry, or fix your code
             else:
                 data = response.text
 
-                line = [data.replace('\n', '')]
+                line = ["{0}\t{1}".format(response.url, data.replace('\n', ''))]
 
                 if scraped_matches == 0:
                     storage.write_data(line)
