@@ -1,0 +1,32 @@
+https://github.com/toddmotto/public-apis - список открытого REST API, разбитые по категориям (музыка, госстатистика, медицина, игры, все что угодно)
+
+научные статьи
+	https://arxiv.org/
+	https://nplus1.ru/
+
+парсинг сайтов:
+	аптеки (состав лекарств, побочные эффекты)
+		http://www.grls.rosminzdrav.ru/GRLS.aspx
+	рецепты + данные по калорийности и составу исходных продуктов
+		https://www.allrecipes.com/
+	анализ популярных торрент-трекеров 
+		rutracker.org
+		thepriratebay.com
+	доски объявлений, интернет-магазины
+		avito.ru/
+		https://youla.ru/
+		ebay.com
+	сайты с курсами валют / криптовалют, тексты с анализами рынка
+		https://www.finam.ru/
+		http://www.cbr.ru/scripts/
+		https://poloniex.com/
+	новости
+		http://developer.nytimes.com/
+		https://ria.ru/
+
+государственные сайты с открытыми данными (результаты голосований, перепись населения и пр.), датасеты
+	http://data.gov.ru/
+	https://www.data.gov/
+	https://data.gov.uk/
+	kaggle.com/
+	https://aws.amazon.com/ru/datasets/
