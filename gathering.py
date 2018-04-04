@@ -163,12 +163,18 @@ def convert_data_to_table_format():
 
 def stats_of_data():
     logger.info("stats")
+
+    pd.set_option('expand_frame_repr', False)
     df = pd.read_json(TABLE_FORMAT_FILE)
 
-    # Your code here
-    # Load pandas DataFrame and print to stdout different statistics about the data.
-    # Try to think about the data and use not only describe and info.
-    # Ask yourself what would you like to know about this data (most frequent word, or something else)
+    print("\n", "*" * 150, "\nDOTA2 matches summary statistics: ")
+    print(df.describe())
+
+    print("\n", "*" * 150, "\nDOTA2 the fasted and slowest matches: ")
+    print(df.iloc[[df['duration'].idxmin(), df['duration'].idxmax()]])
+
+    print("\n", "*" * 150, "\nDOTA2 the most often winning team: ")
+    print(df[df['radiant_win'] == True].groupby(['radiant_name'])['radiant_win'].count().reset_index(name="Wins count").max())
 
 
 if __name__ == '__main__':
